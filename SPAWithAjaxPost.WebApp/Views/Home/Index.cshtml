@@ -1,0 +1,43 @@
+﻿@model SPAWithAjaxPost.WebApp.Models.Employee
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<input type="text" id="txtName" placeholder="Name" />
+<input type="text" id="txtDesignation" placeholder="Designation" />
+<input type="text" id="txtLocation" placeholder="Location" />
+<input type="button" id="btnPost" value="Post Data" />
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnPost").click(function () {
+            var employee = new Object();
+            employee.Name = $('#txtName').val();
+            employee.Designation = $('#txtDesignation').val();
+            employee.Location = $('#txtLocation').val();
+            console.log(employee)
+            if (employee != null) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/AjaxPostCall",
+                    data: employee,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response != null) {
+                            alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
+                        }
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            }
+        });
+    });</script>
+
+
+
+
+
+
